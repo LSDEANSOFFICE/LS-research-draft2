@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Research Colloquium</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --plum:   #3e1435;
+  --violet: #7c3e78;
+  --blush:  #c47fb8;
+  --cream:  #f5f0e8;
+  --sand:   #e8e0d0;
+  --ink:    #1a0d18;
+  --muted:  #7a6c78;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--plum);
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-brand {
+  font-family: 'DM Serif Display', serif;
+  color: white;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+.nav-links a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  margin-left: 28px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: white; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--plum);
+  padding: 60px 40px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(196,127,184,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse at 75% 20%, rgba(124,62,120,0.35) 0%, transparent 55%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blush);
+  margin-bottom: 14px;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: white;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.hero p {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.95rem;
+  font-weight: 300;
+}
+
+/* ── SECTION WRAPPER ── */
+.section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 50px 24px;
+}
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 20px;
+}
+
+/* ── TABLE ── */
+.presenter-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.presenter-table thead th {
+  text-align: left;
+  padding: 10px 16px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 2px solid var(--sand);
+}
+.presenter-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid var(--sand);
+}
+.presenter-table tbody tr:hover {
+  background: rgba(124,62,120,0.07);
+}
+.presenter-table td {
+  padding: 16px 16px;
+}
+.presenter-table td:first-child {
+  font-weight: 500;
+  color: var(--plum);
+}
+.presenter-table td:last-child {
+  font-style: italic;
+  color: var(--muted);
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+}
+.row-arrow {
+  color: var(--blush);
+  font-size: 0.85rem;
+  text-align: right;
+  width: 30px;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 2px solid var(--sand);
+  margin: 0 24px;
+}
+
+/* ── TOPIC CARDS ── */
+#categories { scroll-margin-top: 20px; }
+
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+.topic-card {
+  background: var(--plum);
+  color: white;
+  padding: 22px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.topic-card::after {
+  content: '→';
+  position: absolute;
+  bottom: 18px;
+  right: 20px;
+  opacity: 0;
+  transition: opacity 0.2s, right 0.2s;
+  font-size: 1.1rem;
+}
+.topic-card:hover {
+  background: var(--violet);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(62,20,53,0.2);
+}
+.topic-card:hover::after {
+  opacity: 1;
+  right: 16px;
+}
+.topic-card .card-count {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 8px;
+}
+.topic-card .card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(26,13,24,0.75);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: white;
+  border-radius: 10px;
+  max-width: 680px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(26,13,24,0.35);
+  animation: modal-in 0.22s ease;
+}
+@keyframes modal-in {
+  from { opacity:0; transform: translateY(16px) scale(0.98); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+  padding: 26px 28px 20px;
+  border-bottom: 1px solid var(--sand);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+.modal-header h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.45rem;
+  color: var(--plum);
+  line-height: 1.2;
+}
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.modal-close:hover { background: var(--sand); color: var(--plum); }
+
+.modal-body {
+  padding: 24px 28px 28px;
+}
+
+.abstract-card {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--sand);
+}
+.abstract-card:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.abstract-presenter {
+  font-weight: 600;
+  color: var(--violet);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.abstract-topic {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.25rem;
+  color: var(--plum);
+  margin-bottom: 12px;
+}
+.abstract-text {
+  font-size: 0.93rem;
+  line-height: 1.7;
+  color: #3d2e3b;
+  font-weight: 300;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <span class="nav-brand">2026 Research Colloquium</span>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#categories">Topics</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow">Spring 2026 · Presenter Bulletin</p>
+  <h1>Research Colloquium</h1>
+  <p>Click any presenter or topic to read the abstract.</p>
+</div>
+
+<div class="section">
+  <p class="section-label">Presenters</p>
+  <table class="presenter-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Title</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr onclick="openSingleAbstract('Makenzie Battle')">
+        <td>Makenzie Battle</td>
+        <td>The Duality of Me</td>
+        <td class="row-arrow">›</td>
+      </tr>
+      <tr onclick="openSingleAbstract('Matthew De Alba')">
+        <td>Matthew De Alba</td>
+        <td>Have You Eaten Today?</td>
+        <td class="row-arrow">›</td>
+      </tr>
+      <tr onclick="openSingleAbstract('Saylee Nemade')">
+        <td>Saylee Nemade</td>
+        <td>Beyond the Violet Pantry</td>
+        <td class="row-arrow">›</td>
+      </tr>
+      <tr onclick="openSingleAbstract('Nikhil Mallya')">
+        <td>Nikhil Mallya</td>
+        <td>AI Fragment Decoding</td>
+        <td class="row-arrow">›</td>
+      </tr>
+      <tr onclick="openSingleAbstract('Rebecca Tonetti')">
+        <td>Rebecca Tonetti</td>
+        <td>CTE Diagnosis</td>
+        <td class="row-arrow">›</td>
+      </tr>
+      <tr onclick="openSingleAbstract('Anya Bhandari et al.')">
+        <td>Anya Bhandari et al.</td>
+        <td>Proximity as Power</td>
+        <td class="row-arrow">›</td>
+      </tr>
+      <tr onclick="openSingleAbstract('Haseeb Haider')">
+        <td>Haseeb Haider</td>
+        <td>The Kite Runner</td>
+        <td class="row-arrow">›</td>
+      </tr>
+      <tr onclick="openSingleAbstract('Annalee Debenport')">
+        <td>Annalee Debenport</td>
+        <td>Bird Naming Bias</td>
+        <td class="row-arrow">›</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr class="divider">
+
+<div class="section" id="categories">
+  <p class="section-label">Browse by Topic</p>
+  <div class="topic-grid" id="topic-grid"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title"></h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const data = {
+  identity: {
+    label: "Identity, Culture & Society",
+    abstracts: [{
+      name: "Makenzie Battle",
+      topic: "The Duality of Me",
+      text: `This paper explores the complexities of dual cultural identity and personal belonging within the Black diaspora. Through interviews, personal narrative, and analysis of historical patterns, the study seeks to illuminate the nuanced ways in which cultural heritage intersects with modern social expectations.`
+    }]
+  },
+  food: {
+    label: "Food, Access & Student Life",
+    abstracts: [
+      {
+        name: "Matthew De Alba",
+        topic: "Have You Eaten Today?",
+        text: `Investigates the intersection of food insecurity, mental health, and academic performance among college students. Drawing on survey data and ethnographic observation, the research highlights both systemic barriers to food access and the personal coping mechanisms students employ.`
+      },
+      {
+        name: "Saylee Nemade",
+        topic: "Beyond the Violet Pantry",
+        text: `Explores graduate student food insecurity at our institution, emphasizing the psychological and social impacts. The study combines survey results with qualitative interviews to propose policy recommendations and actionable campus solutions.`
+      }
+    ]
+  },
+  politics: {
+    label: "Politics, Power & Global Systems",
+    abstracts: [{
+      name: "Anya Bhandari et al.",
+      topic: "Proximity as Power",
+      text: `This collaborative research investigates how spatial and relational proximity influences access to political institutions and decision-making power. Case studies include municipal governance, legislative advocacy, and international organizations.`
+    }]
+  },
+  science: {
+    label: "Science, Technology & Health",
+    abstracts: [
+      {
+        name: "Nikhil Mallya",
+        topic: "AI Fragment Decoding",
+        text: `This study examines the use of artificial intelligence to reconstruct partially damaged or fragmented ancient texts. Methods include machine learning-based pattern recognition and semantic analysis. Findings suggest AI-assisted reconstruction can significantly accelerate historical scholarship.`
+      },
+      {
+        name: "Rebecca Tonetti",
+        topic: "CTE Diagnosis",
+        text: `Presents new methodologies for diagnosing chronic traumatic encephalopathy (CTE) in living patients. The research combines neuroimaging, biomarkers, and cognitive assessments to provide earlier and more accurate detection, with implications for athletes and military personnel.`
+      }
+    ]
+  },
+  literature: {
+    label: "Literature, History & Textual Analysis",
+    abstracts: [{
+      name: "Haseeb Haider",
+      topic: "The Kite Runner",
+      text: `Analyzes Khaled Hosseini's 'The Kite Runner' through themes of betrayal, redemption, and sociocultural influence. The paper employs close textual reading, historical contextualization, and comparative literature approaches to explore moral complexity in storytelling.`
+    }]
+  },
+  nature: {
+    label: "Nature & Representation",
+    abstracts: [{
+      name: "Annalee Debenport",
+      topic: "Bird Naming Bias",
+      text: `Investigates gender and cultural bias in the naming of avian species. The study surveys historical records, taxonomic decisions, and modern practices to assess representation and inclusivity in scientific nomenclature.`
+    }]
+  }
+};
+
+// Build topic cards dynamically from data
+function buildTopicGrid() {
+  const grid = document.getElementById('topic-grid');
+  Object.entries(data).forEach(([key, cat]) => {
+    const count = cat.abstracts.length;
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.onclick = () => openModal(key);
+    card.innerHTML = `
+      <div class="card-count">${count} paper${count !== 1 ? 's' : ''}</div>
+      <div class="card-title">${cat.label}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function openModal(key) {
+  const cat = data[key];
+  document.getElementById('modal-title').innerText = cat.label;
+
+  const html = cat.abstracts.map(a => `
+    <div class="abstract-card">
+      <div class="abstract-presenter">${a.name}</div>
+      <div class="abstract-topic">${a.topic}</div>
+      <p class="abstract-text">${a.text}</p>
+    </div>
+  `).join('');
+
+  document.getElementById('modal-content').innerHTML = html;
+  document.getElementById('modal').classList.add('open');
+}
+
+function openSingleAbstract(name) {
+  let found = null;
+  Object.values(data).forEach(cat => {
+    cat.abstracts.forEach(a => { if (a.name === name) found = a; });
+  });
+  if (!found) return;
+
+  document.getElementById('modal-title').innerText = found.name;
+  document.getElementById('modal-content').innerHTML = `
+    <div class="abstract-card">
+      <div class="abstract-topic">${found.topic}</div>
+      <p class="abstract-text">${found.text}</p>
+    </div>
+  `;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+buildTopicGrid();
+</script>
+</body>
+</html>
